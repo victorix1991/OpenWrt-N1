@@ -41,6 +41,10 @@ rm -rf feeds/packages/net/v2ray-geodata
 rm -rf package/feeds/packages/v2ray-geodata
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 
+# 修复 sane-backends 与 hardware-support 的 scanner 组 ID 冲突（否则 make download 在 prepare-tmpinfo 失败）
+rm -rf feeds/packages/libs/sane-backends
+rm -rf package/feeds/packages/sane-backends
+
 # 修复循环依赖问题
 # 修复 luci-app-bypass 循环依赖
 sed -i 's|depends on iptables|depends on iptables \&\& !PACKAGE_luci-app-passwall_Iptables_Transparent_Proxy|g' feeds/small/luci-app-bypass/Makefile 2>/dev/null || true
