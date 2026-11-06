@@ -45,6 +45,9 @@ git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 rm -rf feeds/packages/libs/sane-backends
 rm -rf package/feeds/packages/sane-backends
 
+# 修复旧 feeds 里已废弃的 ---help--- 写法（新版 Kconfig 不认，会导致 make defconfig 失败）
+find feeds package -name Makefile -exec sed -i 's/---help---/help/g' {} +
+
 # 修复循环依赖问题
 # 修复 luci-app-bypass 循环依赖
 sed -i 's|depends on iptables|depends on iptables \&\& !PACKAGE_luci-app-passwall_Iptables_Transparent_Proxy|g' feeds/small/luci-app-bypass/Makefile 2>/dev/null || true
